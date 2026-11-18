@@ -4,7 +4,7 @@
 import { useState } from "react";
 import type { Entry } from "@/lib/types/entry";
 import CrisisNotice from "./CrisisNotice";
-import { reanalyzeEntry } from "./mock-diary-api";
+import { reanalyzeEntry } from "./diary-api";
 
 const dateFormat = new Intl.DateTimeFormat("ko-KR", {
   timeZone: "Asia/Seoul",

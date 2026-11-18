@@ -4,7 +4,7 @@
 import { useCallback, useEffect, useState } from "react";
 import type { Entry } from "@/lib/types/entry";
 import EntryCard from "./EntryCard";
-import { fetchEntries } from "./mock-diary-api";
+import { fetchEntries } from "./diary-api";
 
 export default function HistoryList() {
   const [entries, setEntries] = useState<Entry[] | null>(null);

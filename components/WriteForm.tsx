@@ -3,7 +3,7 @@
 
 import { useState } from "react";
 import type { Entry } from "@/lib/types/entry";
-import { saveEntry } from "./mock-diary-api";
+import { saveEntry } from "./diary-api";
 
 const MAX_LENGTH = 500;
 
@@ -57,6 +57,11 @@ export default function WriteForm({ onSaved }: { onSaved: (entry: Entry) => void
           ? `${-remaining}자 넘었어요. 500자까지 쓸 수 있어요.`
           : `${remaining}자 남았어요`}
       </p>
+      {saving && (
+        <p role="status" className="mt-2 text-muted">
+          일기를 저장하고 마음을 읽는 중이에요. 최대 30초쯤 걸릴 수 있어요.
+        </p>
+      )}
       {error && (
         <p role="alert" className="mt-2 text-accent">
           {error}
@@ -68,7 +73,7 @@ export default function WriteForm({ onSaved }: { onSaved: (entry: Entry) => void
         aria-busy={saving}
         className="mt-4 min-h-12 w-full rounded-full bg-accent px-6 font-semibold text-white hover:bg-accent-hover disabled:opacity-60 sm:w-auto"
       >
-        {saving ? "저장하는 중이에요…" : "저장하기"}
+        {saving ? "마음을 읽고 있어요…" : "저장하기"}
       </button>
     </form>
   );
