@@ -1,26 +1,35 @@
 @import "tailwindcss";
 
+/* 크림색 바탕과 따뜻한 강조색. 글자와 바탕의 대비는 모두 4.5:1 이상으로 잡음 */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #fbf5e9;
+  --foreground: #3b2f2a;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-card: #fffdf8;
+  --color-line: #e6d8c0;
+  --color-muted: #6b5a50;
+  --color-accent: #9a4423;
+  --color-accent-hover: #823a1e;
+  --color-soft: #f6e7d3;
+  --color-care: #fdebdd;
+  --color-care-line: #e0a47c;
+  --font-sans: "Pretendard", "Apple SD Gothic Neo", "Noto Sans KR",
+    "Malgun Gothic", system-ui, sans-serif;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  font-size: 1.0625rem;
+  line-height: 1.7;
+}
+
+:focus-visible {
+  outline: 3px solid #2f6f8f;
+  outline-offset: 2px;
 }
