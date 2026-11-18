@@ -74,7 +74,11 @@ export default function EntryCard({
         </div>
       )}
 
-      {entry.isCrisis && <CrisisNotice />}
+      {entry.isCrisis ? (
+        <CrisisNotice />
+      ) : (
+        entry.analysisStatus === "pending" && <CrisisNotice soft />
+      )}
     </article>
   );
 }

@@ -1,16 +1,19 @@
 // 2026-11-18 11:55 KST
+import { useId } from "react";
 import { CRISIS_NOTICE } from "./crisis-contacts";
 
-export default function CrisisNotice() {
+export default function CrisisNotice({ soft = false }: { soft?: boolean }) {
+  const titleId = useId();
+  const text = soft ? CRISIS_NOTICE.soft : CRISIS_NOTICE;
   return (
     <aside
-      aria-labelledby="crisis-title"
+      aria-labelledby={titleId}
       className="mt-4 rounded-2xl border border-care-line bg-care p-4"
     >
-      <h3 id="crisis-title" className="font-semibold">
-        {CRISIS_NOTICE.title}
+      <h3 id={titleId} className="font-semibold">
+        {text.title}
       </h3>
-      <p className="mt-1">{CRISIS_NOTICE.intro}</p>
+      <p className="mt-1">{text.intro}</p>
       <ul className="mt-3 space-y-3">
         {CRISIS_NOTICE.contacts.map((c) => (
           <li key={c.phone}>
