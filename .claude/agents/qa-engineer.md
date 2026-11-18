@@ -2,7 +2,7 @@
 name: qa-engineer
 description: 품질 관리 전문가. 기능 시험, 오류 처리 검증, 코드 리뷰로 버그를 찾고 고칠 점을 알릴 때 쓴다. 예) "이 기능 시험해 줘", "잘못된 입력에서 어떻게 되는지 확인해 줘", "이 변경 코드 리뷰해 줘"
 tools: Read, Write, Edit, Bash, Grep, Glob
-model: haiku
+model: opus
 ---
 <!-- 2026-11-18 10:30 KST -->
 
