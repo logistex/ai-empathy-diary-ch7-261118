@@ -155,6 +155,7 @@ export function analyzeEntry(content: string): Promise<AnalysisResult>;
 | 청소년상담 | 1388 | 365일 24시간 무료. 대상은 9~24세 청소년과 그 부모와 보호자 |
 
 - 연락처는 API가 돌려주지 않음. 화면이 `isCrisis`가 `true`인 일기에 위 연락처를 함께 보여 줌(지난 기록에서 해당 기록을 다시 열 때도 보임)
+- `analysisStatus`가 `"pending"`인 일기에도 위 연락처를 보여 줌. 이때 `isCrisis`가 `false`이면 걱정을 단정하지 않는 부드러운 문구를 씀(예: "혹시 마음이 많이 힘드시다면 이야기를 들어 줄 곳이 있어요"). 2026-11-18 신 교수 승인(4단계 QA의 2안)
 - 번호와 문구는 frontend-developer가 한 곳(상수 1개)에 둠. 4단계에서 qa-engineer가 공식 자료와 대조함
 - 위기 표시 때문에 일기 저장이 막히지 않음
 
@@ -184,3 +185,7 @@ export function analyzeEntry(content: string): Promise<AnalysisResult>;
 - 2026-11-18: 1단계에서 backend-developer가 처음 씀
 - 2026-11-18: 2단계에서 ai-integration-specialist가 3장의 실패 정의, 3.1절(감정 목록 8개 그대로 확정, 목록 밖 단어는 실패), 3.2절(150자 이내 확정)을 확정함. 영향받는 담당자 없음(`EMOTIONS` 변경 없음)
 - 2026-11-18: 3단계에서 backend-developer가 1장 표의 backend-developer 줄에 `tests/`를 더하고, `app/api/entries/analyze.ts`가 `analyzeEntry`를 부르도록 바꿈(2.2절 처리 순서의 3단계 통합 완료). API 형식 변경 없음
+- 2026-11-18: QA 보고(docs/qa/haiku.md, opus.md 2.1절)에 따라 ai-integration-specialist가 `lib/ai/crisis.ts`의 위기 표현 비교를 한글 자모(NFD) 기준으로 바꾸고 패턴을 보탬. `matchesCrisisList` 시그니처와 3장 계약은 그대로이며 영향받는 담당자 없음. 회귀 시험 `tests/crisis.test.ts`를 더함(모델 호출 없음)
+- 2026-11-18: ai-integration-specialist가 `lib/ai/crisis.ts`의 위기 표현 목록을 오탐을 줄이는 쪽으로 좁힘(PRD 4.5절, 2안 승인에 따름). 받침 없는 음절로 끝나는 패턴(유서, 팔을그, 손목을그, 뛰어내리, 목매)에 다음 글자를 더하고, 일상 문맥과 겹치는 패턴(살이유, 더이상살, 그만살, 편하게갈, 죽었으면, 약을다먹, 약을모아)은 뒤말을 요구하게 바꾸며, 자살률 등 고정 표현을 비교 전에 지움. `다끝내고싶`은 뺐음. `matchesCrisisList` 시그니처와 3장 계약은 그대로이며 영향받는 담당자 없음. `tests/crisis.test.ts`에 일반 문장 31개를 더함
+- 2026-11-18: 신 교수 결정(「넓은 판으로 되돌려라」, PRD 4.5절의 원칙에 따름)으로 ai-integration-specialist가 직전 줄의 좁힘을 모두 되돌림(패턴 68개로 복귀). 중립 문구는 `자살예방`, `자살률`, `유서깊`, `유서가깊`만 남김(`죽을까봐` 등 위기 문장을 가릴 수 있는 것은 뺌). `matchesCrisisList` 시그니처와 3장 계약은 그대로이며 영향받는 담당자 없음. `tests/crisis.test.ts`는 위기 예문 53개(`true` 단언)로 늘리고 일반 문장 31개는 오탐을 세어 출력하는 참고 목록으로 바꿈
+- 2026-11-18: 재확인(`docs/qa/recheck3.md`)에서 중립 문구가 위기 문장을 가리는 것이 드러나, 오케스트레이터가 `NEUTRAL_PHRASES`를 비움(자살예방, 자살률, 유서깊, 유서가깊 제거). 놓침을 줄이는 쪽 우선(PRD 4.5절). `tests/crisis.test.ts`에 가림 예문을 더함
