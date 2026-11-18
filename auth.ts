@@ -14,9 +14,18 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [Google],
   session: { strategy: "jwt" },
   callbacks: {
-    // token.sub는 Auth.js가 구글 프로필의 sub(구글 계정 고유 ID)로 채움
+    // token.sub에는 Auth.js가 로그인마다 새로 만드는 무작위 ID가 들어가므로 쓰지 않음
+    // (@auth/core lib/actions/callback/oauth/callback.js의 getUserAndAccount).
+    // 구글 계정 고유 ID(sub)는 로그인할 때만 받는 account.providerAccountId에 있으므로 토큰에 따로 담음.
+    jwt({ token, account }) {
+      if (account?.provider === "google" && account.providerAccountId) {
+        token.googleId = account.providerAccountId;
+      }
+      return token;
+    },
+    // 구글 계정 ID가 없는 옛 세션은 사용자 ID를 비워 두어 다시 로그인하게 함
     session({ session, token }) {
-      session.user.id = token.sub as string;
+      session.user.id = typeof token.googleId === "string" ? token.googleId : "";
       return session;
     },
   },
