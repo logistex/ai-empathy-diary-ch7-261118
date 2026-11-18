@@ -10,7 +10,7 @@
 
 | 담당 | 폴더와 파일 | 비고 |
 |---|---|---|
-| backend-developer | `app/api/`, `lib/db/`, `lib/auth/`, `lib/types/`, `db/`, `auth.ts`, `proxy.ts`(만들 경우) | 인증, 데이터베이스, 마이그레이션, API |
+| backend-developer | `app/api/`, `lib/db/`, `lib/auth/`, `lib/types/`, `tests/`, `db/`, `auth.ts`, `proxy.ts`(만들 경우) | 인증, 데이터베이스, 마이그레이션, API |
 | ai-integration-specialist | `lib/ai/` | OpenRouter 호출, 프롬프트, 위기 표현 목록 |
 | frontend-developer | `app/`(단 `app/api/` 제외), `components/`, `public/` | 화면과 컴포넌트 |
 
@@ -183,3 +183,4 @@ export function analyzeEntry(content: string): Promise<AnalysisResult>;
 
 - 2026-11-18: 1단계에서 backend-developer가 처음 씀
 - 2026-11-18: 2단계에서 ai-integration-specialist가 3장의 실패 정의, 3.1절(감정 목록 8개 그대로 확정, 목록 밖 단어는 실패), 3.2절(150자 이내 확정)을 확정함. 영향받는 담당자 없음(`EMOTIONS` 변경 없음)
+- 2026-11-18: 3단계에서 backend-developer가 1장 표의 backend-developer 줄에 `tests/`를 더하고, `app/api/entries/analyze.ts`가 `analyzeEntry`를 부르도록 바꿈(2.2절 처리 순서의 3단계 통합 완료). API 형식 변경 없음
