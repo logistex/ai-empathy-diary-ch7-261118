@@ -143,6 +143,21 @@
 ## 6. 미결
 
 - 0단계 PRD에서 정할 것 세 가지와 일기 길이 상한은 2026-11-18 신 교수가 PRD의 제안안대로 승인함(`docs/PRD.md` 첫머리)
-- `.env`에 구글 로그인 변수가 없음
-  - Auth.js가 요구하는 `AUTH_SECRET`, `AUTH_GOOGLE_ID`, `AUTH_GOOGLE_SECRET` 3개가 모두 없음(2026-11-18 값을 출력하지 않는 스크립트로 변수 이름만 판정함)
-  - 1단계 전에 신 교수가 구글 OAuth 클라이언트를 만들고, 신 교수가 정한 방법으로 3개 변수를 넣음
+- `.env`의 구글 로그인 변수 3개는 2026-11-18 1단계에서 넣었음. `AUTH_GOOGLE_ID`와 `AUTH_GOOGLE_SECRET`은 `secrets.toml`(구글 클라우드 recipe4fridge 프로젝트의 「recipe4fridge web client」)에서 옮겼고, `AUTH_SECRET`은 새로 만들었음
+- 남은 미결은 없음
+
+## 7. 실습이 끝난 뒤 정리할 것
+
+- 이 실습이 모두 끝나면 아래를 지움(2026-11-18 신 교수 지시: 「이 실습이 다 끝나고 나면 … 모두 삭제하기 바란다」)
+- 지우는 일은 되돌릴 수 없으므로, 그때 대상과 영향을 다시 보여 드리고 신 교수의 승인을 받은 뒤에 함
+- 지울 대상
+
+| 대상 | 정확한 이름 | 주의 |
+|---|---|---|
+| 깃허브 저장소 | `logistex/ai-empathy-diary-ch7-261118` | 교수 시연 저장소 `logistex/ai-empathy-diary-ch7`은 지우지 않음 |
+| 구글 OAuth 리디렉션 URI | recipe4fridge 프로젝트 「recipe4fridge web client」의 `http://localhost:3000/api/auth/callback/google`, 5단계에서 더할 배포 주소의 콜백 | 클라이언트 자체와 기존 URI 3개는 6장 앱이 쓰므로 지우지 않음 |
+| Supabase 스키마 | `DATABASE_URL`이 가리키는 데이터베이스의 `dr_diary` 스키마(표 `dr_entries`) | `db/migrations/001_dr_diary.down.sql`로 지움. 기존 `diary`, `diary_0904` 스키마는 절대로 건드리지 않음. 지우기 전후로 다른 스키마의 표 수와 행 수를 비교함 |
+| Vercel 프로젝트 | 5단계에서 만들면 그 프로젝트 | 5단계를 하지 않으면 해당 없음 |
+
+- 로컬의 `.env`에 옮긴 구글 로그인 값 3개도 함께 지울지는 그때 여쭘
+- 노트 7장(노션 작업 페이지 `40a022e2…`)의 빨간 문장 5곳(7.4.2, 7.4.6, 7.4.7, 7.4.10, 7.5.3의 이어 하기 안내)은 신 교수의 확인이 끝나면 검정으로 바꿈(2026-11-18 신 교수 지시). `notion-write`로 `<span color="red">` 표시만 지우고 되받아 대조함
